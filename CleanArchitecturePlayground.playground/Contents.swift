@@ -53,7 +53,7 @@ class UserCreatePresenter: UserCreatePresenterInterface {
     }
 }
 
-// 【Application Business Rules】 アプリケーションのAPI
+// 【Application Business Rules】 アプリケーションのビジネスルール
 // Use Cases ユースケースを表す
 struct UserCreateInputData {
     var userName: String
