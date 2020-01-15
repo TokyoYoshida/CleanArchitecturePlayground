@@ -55,7 +55,13 @@ class UserCreatePresenter: UserCreatePresenterInterface {
 
 // 【Application Business Rules】 アプリケーションのビジネスルール
 // Use Cases ユースケースを表す
+
+// InputDataやOutputDataなどの境界を超えるデータはなるべく簡素にする。メソッドの引数やハッシュを用いても良い。なるべく内側の円にとって便利な形式であれば良い。
 struct UserCreateInputData {
+    var userName: String
+}
+
+struct UserCreateOutputData {
     var userName: String
 }
 
@@ -80,10 +86,6 @@ class UserCreateInteractor: UserCreateUseCaseInterface{
         let output = UserCreateOutputData(userName: user.userName)
         presenter.complete(output: output)
     }
-}
-
-struct UserCreateOutputData {
-    var userName: String
 }
 
 // 【Enterprise Business Rules】 ドメイン層
