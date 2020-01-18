@@ -1,18 +1,29 @@
-// 【Frameworks & Drivers】
-// DB, UI
+// 【Frameworks & Drivers】アプリケーションフレームワークやドライバなど実装の詳細にあたる部分
+
+// DB ORMやDAOなどDBとのやり取りをするAPI。このサンプルではモック。
 class SomeDB {
     static func executeQuery(sql: String, bindParam: [String]) {
         // Dummy ここで実際にユーザーを登録する
     }
 }
 
+// UI　UIKitやRailsの表示部分など画面表示をするためのAPI。このサンプルではモック
 class SomeUI {
-    static func output(string: String){
+    let viewModel = UserCreateViewModel(userName: "")
+
+    func start(){
+        viewModel
+    }
+
+    func output(string: String){
         print("output = \(string)")
     }
 }
 
+
+
 // 【Interface Adapters】Application Business RulesとFrameworks & Driversの型の相互変換
+
 // Controllers 入力をUserCaseのために変換する（入力のための変換）
 class UserController {
     var userCreateUseCase: UserCreateUseCaseInterface
@@ -49,14 +60,25 @@ protocol UserCreatePresenterInterface {
 class UserCreatePresenter: UserCreatePresenterInterface {
     func complete(output: UserCreateOutputData) {
         let userName = output.userName
-        SomeUI.output(string: userName)
+        UserCreateViewModel(userName: userName)
+    }
+}
+
+class UserCreateViewModel {
+    var userName: String
+    init(userName: String) {
+        self.userName = userName + "さん"
+    }
+    
+    func bind() {
+        
     }
 }
 
 // 【Application Business Rules】 アプリケーションのビジネスルール
-// Use Cases ユースケースを表す
 
-// InputDataやOutputDataなどの境界を超えるデータはなるべく簡素にする。メソッドの引数やハッシュを用いても良い。なるべく内側の円にとって便利な形式であれば良い。
+// UseCaseと上位層との遣り取りをするためのオブジェクト
+// このような境界を超えるデータはなるべく簡素にする。メソッドの引数やハッシュを用いても良い。なるべく内側の円にとって便利な形式であれば良い。
 struct UserCreateInputData {
     var userName: String
 }
@@ -65,6 +87,7 @@ struct UserCreateOutputData {
     var userName: String
 }
 
+// Use Cases ユースケースを表す
 protocol UserCreateUseCaseInterface {
     func handle(input: UserCreateInputData)
 }
