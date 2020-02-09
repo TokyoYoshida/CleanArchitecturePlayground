@@ -86,6 +86,7 @@ class UserCreateViewModel {
 // 【Application Business Rules】 アプリケーションのビジネスルール
 
 // UseCaseと上位層との遣り取りをするためのオブジェクト
+// DDDではこれをRepositoryと読んでいる
 protocol UserDataAccessInterface {
     func save(user: UserEntity)
 }
