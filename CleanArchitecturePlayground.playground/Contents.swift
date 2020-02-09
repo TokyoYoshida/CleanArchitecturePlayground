@@ -108,9 +108,9 @@ protocol UserCreateUseCaseInputPort {  // Input Boundaryともいう
 }
 
 class UserCreateInteractor: UserCreateUseCaseInputPort {
-    var userDataAccess: UserDataAccess
+    var userDataAccess: UserDataAccessInterface
     var presenter: UserCreateUseCaseOutputPort
-    init(userDataAccess: UserDataAccess, presenter: UserCreateUseCaseOutputPort) {
+    init(userDataAccess: UserDataAccessInterface, presenter: UserCreateUseCaseOutputPort) {
         self.userDataAccess = userDataAccess
         self.presenter = presenter
     }
